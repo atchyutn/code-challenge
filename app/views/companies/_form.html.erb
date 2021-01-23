@@ -53,7 +53,8 @@
       </div>
       <div class="col-lg offset-lg-1">
         <div class="form-group">
-          <%= f.text_field :email, class: "form-control", placeholder: "hello@company.com"%>
+           <span id="email-error" class="text-danger"></span>
+          <%= f.text_field :email, class: "form-control", placeholder: "hello@company.com", id: 'email-field', onkeyup: "validateEmail(event)"%>
         </div>
       </div>
     </div>
@@ -72,9 +73,27 @@
     <div class="row my-lg-3">
       <div class="col">
         <div class="form-group">
-          <%= f.submit class: "btn btn-success"%>
+          <%= f.submit class: "btn btn-success", onClick: "validateEmail(event)"%>
         </div>
       </div>
     </div>
   <% end %>
 </div>
+
+<script type="text/javascript" >
+  function validateEmail(e){
+    e.preventDefault();
+    var companyEmail = document.getElementById("email-field").value
+    if(companyEmail.length > 0){
+      if (!/@getmainstreet.com\s*$/.test(companyEmail)) {
+        document.getElementById("email-error").innerHTML = 'Email should end with domain @getmainstreet.com'
+        document.getElementById("email-field").classList.add('email-error');
+        return false;
+      }else{
+        document.getElementById("email-field").classList.remove('email-error');
+        document.getElementById("email-error").innerHTML = '';
+         $('form').submit();
+      }
+    }
+  }
+</script> 
