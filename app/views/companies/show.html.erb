@@ -39,4 +39,7 @@
   <div class="bg-success text-white text-center py-3">
     <p class="lead"><%= @company.phone %> — <%= @company.email %></p>
   </div>
+
+  <hr>
+   <%= link_to 'Remove Company', @company, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-large btn-danger py-3", id: 'remove-company' %>
 </div>

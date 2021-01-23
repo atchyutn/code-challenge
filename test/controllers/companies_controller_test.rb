@@ -58,4 +58,26 @@ class CompaniesControllerTest < ApplicationSystemTestCase
     assert_equal "28173", last_company.zip_code
   end
 
+test 'Destroy' do
+  visit companies_path
+  count = Company.count
+
+  find_all('#remove-company')[0].click
+  page.driver.browser.switch_to.alert.accept
+
+  assert_text "#{@company.name} has been deleted successfully!"
+  assert_equal(Company.count, count - 1)
+end
+
+test 'Destroy in show page' do
+  visit company_path(@company)
+  count = Company.count
+
+  find_all('#remove-company')[0].click
+  page.driver.browser.switch_to.alert.accept
+
+  assert_text "#{@company.name} has been deleted successfully!"
+  assert_equal(Company.count, count - 1)
+end
+
 end
